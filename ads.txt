@@ -1,0 +1,78 @@
+structdict	
+{
+int k;
+int v;
+}a[10];
+
+int insert(intkey,int value)
+{
+int h=0,i=0,j;
+        h=key%10;
+if(a[h].k==-1)
+        {
+a[h].k=key;
+a[h].v=value;
+return 1;
+        }
+for(i=h+1;i<10;i++)
+        {
+		if(a[i].k==-1)
+		{
+			a[i].k=key;
+			a[i].v=value;
+			return 1;
+		}
+	}
+for(j=0;j<h;j++)
+        {
+		if(a[j].k==-1)
+		{
+	a[j].k=key;
+		a[j].v=value;
+	return 1;
+		}
+        }
+return -1;
+}
+
+
+int delete(int key)
+{
+int h=0,i=0,j=0;
+        h=key%10;
+if(a[h].k==key)
+        {
+a[h].k=-1;
+a[h].v=-1;
+return 1;
+        }
+for(i=h+1;i<10;i++)
+        {
+		if(a[i].k==key)
+		{
+a[i].k=-1;
+		a[i].v=-1;
+	return 1;
+		}
+        }
+for(j=0;j<h;j++)
+        {
+		if(a[j].k==key)
+		{
+		a[j].k=-1;
+			a[j].v=-1;
+		return 1;
+		}
+	}
+return -1;
+}
+
+int search(int key)
+{
+int h=0,i,j;
+        h=key%10;
+if(a[h].k==key)
+        {
+printf("Value found at the index : %d value is : %d\n",h,a[h].v);
+return 1;
+        }
