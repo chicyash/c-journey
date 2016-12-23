@@ -1,8 +1,4 @@
-structdict	
-{
-int k;
-int v;
-}a[10];
+#include<stdio.h>
 
 int insert(intkey,int value)
 {
