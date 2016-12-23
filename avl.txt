@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define max(a,b) ((a>b)?a:b)
+
+typedefstructAvlNode
+{
+int data;
+structAvlNode *left,*right;
+}avlnode;
+avlnode *root;
+
+avlnode* rotate_LL(avlnode *parent)
+{
+avlnode *child=parent->left;
+parent->left=child->right;
+child->right=parent;
+return child;
+}
+
+avlnode* rotate_RR(avlnode *parent)
+{
+avlnode *child=parent->right;
+parent->right=child->left;
+child->left=parent;
+return child;
+}
