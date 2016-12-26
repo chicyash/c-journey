@@ -1,0 +1,197 @@
+#include<stdio.h>
+struct vertex
+{
+struct vertex *next;
+char data;
+struct edge *adj;
+}*first=NULL,*p;
+
+struct edge
+{
+chardest;
+struct edge *link;
+};
+struct vertex *find_vertex(char);
+
+main()
+{
+int choice;
+charx,origin, destin;
+while(1)
+{
+printf( "1.InsertVertex\n" );
+printf( "2.InsertEdge\n" );
+printf( "3.DeleteVertex\n" );
+printf( "4.FindVertex\n");
+printf( "5.Display\n" );
+printf( "6.Exit\n" );
+printf( "Enter your choice : " );
+scanf( "%d",&choice );
+switch(choice)
+{
+case 1:	printf("Enter a vertex to be inserted : " );
+scanf(" %c",&x);
+insert_vertex(x);
+break;
+case 2:     printf( "Enter an edge to be inserted : " );
+scanf( " %c %c", &origin, &destin );
+insert_edge( origin, destin );
+break;
+case 3:   printf( "Enter a vertex to be deleted : " );
+scanf( " %c",&x);
+delete_vertex(x);
+delvertex_edge(x);
+break;
+case 4:	printf( "Enter a vertex to find:" );
+scanf( " %c",&x);
+p=find_vertex(x);
+if(p==NULL)
+printf("\n vertex not found\n");
+else
+printf("\n vertex %c found\n",p->data);
+break;
+case 5:       display();
+break;
+case 6:    exit();
+}
+}
+}
+
+insert_vertex( char x)
+{
+struct vertex *temp,*newnode;
+newnode=(struct vertex *) malloc( sizeof( struct vertex));
+newnode->data=x;
+newnode->next = NULL;
+newnode->adj=NULL;
+if(first==NULL)
+{
+first=newnode;
+return;
+}
+temp=first;
+while(temp->next!=NULL )
+temp=temp->next;
+temp->next =newnode;
+}
+
+delete_vertex( char x)
+{
+struct vertex *temp,*ptr;
+if (first->data==x)
+{
+temp=first;
+first=first->next;
+free(temp);
+return;
+}
+temp=first;
+while(temp->next->next!=NULL)
+{
+if(temp->next->data==x)
+{
+ptr=temp->next;
+temp->next=ptr->next;
+free(ptr);
+return;
+}
+temp=temp->next;
+}
+if ( temp->next->data==x)
+{
+ptr= temp->next;
+free(ptr);
+temp->next=NULL;
+}
+}
+
+delvertex_edge(char x)
+{
+
+struct vertex *temp;
+struct edge *ptr,*temp1;
+temp=first;
+while (temp!=NULL )
+{
+if ( temp->adj->dest==x)
+{
+temp1=temp->adj;
+temp->adj=temp->adj->link;
+free(temp1);
+}
+temp1=temp->adj;
+while(temp1->link->link!=NULL )
+{
+if (temp1->link->dest==x
+{
+ptr=temp1->link;
+temp1->link=ptr->link;
+free(ptr);
+}
+temp1=temp1->link;
+}
+if (temp1->link->dest==x)
+{
+ptr=temp1->link;
+free(ptr);
+temp1->link=NULL;
+}
+temp=temp->next;
+}
+}
+
+insert_edge(char s, char d)
+{
+struct vertex *locs, *locd;
+struct edge *newnode,*temp;
+locs=find_vertex(s);
+newnode=(struct edge *)malloc(sizeof( struct edge));
+newnode->dest=d;
+newnode->link=NULL;
+if(locs->adj==NULL)
+{
+locs->adj=newnode;
+return;
+}
+temp=locs->adj;
+while(temp->link!=NULL)
+temp=temp->link;
+temp->link=newnode;
+}
+
+struct vertex *find_vertex( char x)
+{
+struct vertex *temp,*loc=NULL;
+temp=first;
+while (temp!=NULL )
+{
+if(temp->data==x)
+{
+loc=temp;
+returnloc;
+}
+else
+temp=temp->next;
+}
+returnloc;
+}
+
+display()
+{
+struct node *temp;
+struct edge *temp1;
+temp=first;
+while(temp!=NULL )
+{
+printf( "%c ->",temp->data);
+temp1=temp->adj;
+while (temp1!=NULL)
+{
+printf( "%c->",temp1->dest);
+temp1=temp1->link;
+}
+printf( "\n" );
+temp=temp->next;
+}
+}
+
